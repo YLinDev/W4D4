@@ -23,4 +23,41 @@ describe Hanoi do
             end
         end
     end
+
+    describe '#get_move' do
+        it "should return an array of two positions" do 
+            expect(piece.get_move.is_a?(Array)).to be_truthy
+        end
+    end
+
+    describe 'valid_move?' do
+        context "when it is a vaild move" do 
+            it "return true when it's a valid move" do
+                expect(piece.valid_move?([0,1])).to be_truthy
+            end
+        end
+        context "when it is not a valid move" do
+            it "return false when move has more than 2 positions" do
+                expect(piece.valid_move?([0,1,2])).to be_falsey
+            end
+            it "return false when moving on top of a smaller disc" do 
+                piece.move([0,1])
+                expect(piece.valid_move?([0,1])).to be_falsey
+            end
+        end
+    end
+
+    describe "#move" do 
+        it "moves the top block get first position to the second" do
+            piece.move([0,1])
+            expect(piece.board[1][-1]).to eq(1)
+            expect(piece.board[0][-1]).to eq(2)
+        end
+    end
 end
+
+#valid_move?
+#get_move
+#display
+#move
+#won?
