@@ -37,12 +37,16 @@ describe Hanoi do
             end
         end
         context "when it is not a valid move" do
-            it "return false when move has more than 2 positions" do
+            it "return false when move doesn't have 2 positions" do
                 expect(piece.valid_move?([0,1,2])).to be_falsey
+                expect(piece.valid_move?([0])).to be_falsey
             end
             it "return false when moving on top of a smaller disc" do 
                 piece.move([0,1])
                 expect(piece.valid_move?([0,1])).to be_falsey
+            end
+            it "return false when first position is empty" do
+                expect(piece.valid_move?([2,0])).to be_falsey
             end
         end
     end
@@ -52,6 +56,24 @@ describe Hanoi do
             piece.move([0,1])
             expect(piece.board[1][-1]).to eq(1)
             expect(piece.board[0][-1]).to eq(2)
+        end
+    end
+
+    describe "#won?" do
+        let(:piece2) {Hanoi.new(2)}
+        context "when the game is over" do
+            it "should return true when board has all the discs in order on the final peg" do
+                piece2.move([0,1])
+                piece2.move([0,2])
+                piece2.move([1,2])
+                expect(piece2.won?).to be_truthy
+            end
+        end
+        context "when the game is not over" do
+            it "should return false when board does not have all the discs in order on the final peg" do
+                piece2.move([0,1])
+                expect(piece2.won?).to be_falsey
+            end
         end
     end
 end

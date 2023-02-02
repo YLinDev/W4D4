@@ -20,4 +20,24 @@ class Hanoi
         disc = @board[positions[0]].pop
         @board[positions[1]].push(disc)
     end
+
+    def valid_move?(position)
+        return false if position.length != 2
+        return false if @board[position[0]].empty?
+        return true if @board[position[1]].empty?
+        if @board[position[1]][-1] < @board[position[0]][-1]
+            return false 
+        end
+        true 
+    end
+
+    def won?
+        in_order = []
+        num = @size
+        while num > 0
+            in_order << num
+            num -= 1
+        end
+        @board[2] == in_order
+    end
 end
