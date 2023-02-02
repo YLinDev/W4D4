@@ -39,3 +39,14 @@ describe 'my_transpose' do
         expect(my_transpose(grid1)).to eq(grid2)
     end
 end
+
+describe "stock_picker" do
+
+    it "should raise an error where there are not enough inputs" do
+        expect{stock_picker([1])}.to raise_error('not enough days')
+    end
+
+    it "should return the most profitable pair of days" do
+        expect(stock_picker([1,4,0,2,5])).to eq([2,4])
+    end
+end

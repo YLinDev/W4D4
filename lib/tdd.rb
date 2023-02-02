@@ -7,7 +7,7 @@ class Array
         end
         return hash.keys
     end
-    
+
     def two_sum
         result = []
         (0...self.length - 1).each do |i|
@@ -30,4 +30,18 @@ def my_transpose(array)
         result << sub
     end
     result
+end
+
+def stock_picker(array)
+    raise "not enough days" if array.length < 2
+    result = [ 0, 1, array[1] - array[0]]
+    (1...array.length-1).each do |i|
+        (i+1...array.length).each do |j|
+            max = array[j] - array[i]
+            if max > result[2]
+                result = [ i, j, max]
+            end
+        end
+    end
+    result[0..1]
 end
