@@ -76,6 +76,7 @@ describe Hanoi do
             end
         end
     end
+
 end
 
 #valid_move?
